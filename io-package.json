@@ -1,12 +1,12 @@
 {
 	"common": {
 		"name": "mihome-vacuum",
-		"version": "0.3.2",
+		"version": "0.5.2",
 		"news": {
-			"0.3.2": {
-				"en": "fix Protocol update after 3.3.9",
-				"de": "Korrigiere Protokollupdate nach Version 3.3.9",
-				"ru": "fix Protocol update after 3.3.9"
+			"0.5.2": {
+				"en": "Change everything",
+				"de": "Adapter überarbeitet",
+				"ru": "Change everything"
 			},
 			"0.3.1": {
 				"en": "fix setting the fan power",
@@ -52,7 +52,8 @@
 	"native": {
 		"port": 54321,
 		"ownPort": 53421,
-		"pingInterval": 20000
+		"pingInterval": 20000,
+		"param_pingInterval": 25000
 	},
 	"instanceObjects": [
 		{
@@ -64,10 +65,18 @@
 			"native": {}
 		},
 		{
-			"_id": "info.consumable",
+			"_id": "consumable",
 			"type": "channel",
 			"common": {
 				"name": "Vaccuum consumable"
+			},
+			"native": {}
+		},
+		{
+			"_id": "history",
+			"type": "channel",
+			"common": {
+				"name": "Vaccuum cleaning history"
 			},
 			"native": {}
 		},
@@ -129,6 +138,17 @@
 			"common": {
 				"role": "button",
 				"name": "Find",
+				"type": "boolean",
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "control.spotclean",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Spot cleaning",
 				"type": "boolean",
 				"write": true
 			},
@@ -250,10 +270,10 @@
 			"native": {}
 		},
 		{
-			"_id": "info.consumable.main_brush",
+			"_id": "consumable.main_brush",
 			"type": "state",
 			"common": {
-				"name": "Main brush",
+				"name": "Main brush lifetime",
 				"type": "number",
 				"role": "level",
 				"read": true,
@@ -262,10 +282,21 @@
 			"native": {}
 		},
 		{
-			"_id": "info.consumable.side_brush",
+			"_id": "consumable.main_brush_reset",
 			"type": "state",
 			"common": {
-				"name": "Side brush",
+				"role": "button",
+				"name": "Main brush lifetime reset",
+				"type": "boolean",
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "consumable.side_brush",
+			"type": "state",
+			"common": {
+				"name": "Side brush lifetime",
 				"type": "number",
 				"role": "level",
 				"read": true,
@@ -274,14 +305,116 @@
 			"native": {}
 		},
 		{
-			"_id": "info.consumable.filter",
+			"_id": "consumable.side_brush_reset",
 			"type": "state",
 			"common": {
-				"name": "Filter",
+				"role": "button",
+				"name": "Side brush lifetime reset",
+				"type": "boolean",
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "consumable.filter",
+			"type": "state",
+			"common": {
+				"name": "Filter lifetime",
 				"type": "number",
 				"role": "level",
 				"read": true,
 				"unit": "%"
+			},
+			"native": {}
+		},
+		{
+			"_id": "consumable.filter_reset",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Filter lifetime reset",
+				"type": "boolean",
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "consumable.sensors",
+			"type": "state",
+			"common": {
+				"name": "sensor lifetime",
+				"type": "number",
+				"role": "level",
+				"read": true,
+				"unit": "%"
+			},
+			"native": {}
+		},
+		{
+			"_id": "consumable.sensors_reset",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Sensors lifetime reset",
+				"type": "boolean",
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "history.allTableHTML",
+			"type": "state",
+			"common": {
+				"name": "History of clean as THML",
+				"type": "string",
+				"role": "history",
+				"read": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "history.allTableJSON",
+			"type": "state",
+			"common": {
+				"name": "History of clean as JSON",
+				"type": "object",
+				"role": "history",
+				"read": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "history.total_time",
+			"type": "state",
+			"common": {
+				"name": "Total time ",
+				"type": "number",
+				"role": "history",
+				"unit": "min.",
+				"read": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "history.total_area",
+			"type": "state",
+			"common": {
+				"name": "Total area ",
+				"type": "number",
+				"role": "history",
+				"unit": "m²",
+				"read": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "history.total_cleanups",
+			"type": "state",
+			"common": {
+				"name": "Total cleanups ",
+				"type": "number",
+				"role": "history",
+				"read": true
 			},
 			"native": {}
 		}

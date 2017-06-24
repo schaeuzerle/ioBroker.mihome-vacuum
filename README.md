@@ -18,41 +18,41 @@ iobroker add mihome-vacuum
 ```
 
 ## Konfiguration
-Derzeit stellt das Ermitteln des Tokens das größte Problem.
+Derzeit stellt das Ermitteln des Tokens das größte Problem dar.
 Token Vorgehen:
 
-###  Bei Android
-Vorbereitung:
-Wir brauchen ein Android Handy mit der eingerichteteten Mihome App (Sauger auch schon eingerichtet) und einen Windows PC.
+### 1. Roboter resetten
+Um den Token des Roboters zu bekommen, muss man ihn erstmal aus dem Wlan abmelden.
+Dies geht entweder über die app unter "General settings" --> "remove device".
+Alternativ kann man auch den Resetknopf am Gerät drücken.
 
-- Nun das [MiToolkit](https://github.com/ultrara1n/MiToolkit/releases) downloaden, endpacken und MiToolkit.exe öffnen.
-- USB-Degugging in den Handy-Einstellungen einschalten ([video](https://www.youtube.com/watch?v=aw7D6bNgI1U))
-- Das Handy über ein USB-Kabel mit dem PC verbinden.
-- in dem MiToolkit Auf Verbindung prüfen klicken und Javainstanz testen, beides sollte Fehlerfrei sein.
-- Nun nur noch auf "Token auslesen klicken" und die Meldung auf dem Handy bestätigen.
+### 2. Mit WLAN von Roboter verbinden
+Nun verbindet man sich mit seinem Windows (oder anderem Betriebssystem) Rechner mit dem Wlan des Roboters. Der Rechner muss also WLAN haben
+Die Kennung des Wlan lautet: rockrobo...
 
-Auf dem Handy sollte nun die MiHome app geöffnet werden (automatisch) und es wird ein Backup auf den pc gezogen (sollte ein paar Sekunden dauern), das Programm ließt dann aus der Datenbank den Token aus.
-Nun nur in dem geöffneten Fenster nach rockrobo.vaccuum suchen und den 32 Stelligen Token kopieren und in dem Konfigurationsfenster eingeben.
+### 3. Packet Sender
+Das Programm "Packet Sender" muss installiert sein und gestartet werden
 
+- Im Eingabebereich müssen folgende Werte eingegeben werden:
+- "HEX":      21310020ffffffffffffffffffffffffffffffffffffffffffffffffffffffff (=HALO Nachricht)
+- "Adresse":  IP vom Roboter 192.168.8.1
+- "Port":     54321
+- Nachrichtentyp UDP
 
-###  Bei iOS
+### 5. Packet senden.
+Nun auf "Send" klicken
+Fenster unten:
 
-Mit Jailbreak:
-- Findet man den Token unter /var/mobile/Containers/Data/Application/514106F3-C854-45E9-A45C-119CB4FFC235/Documents/USERID_mihome.sqlite
+a) gesendete Nachricht
+b) darüber die Antwort von dem Roboter
 
-Ohne Jailbreak:
-- Muss man einen unverschlüsselten iTunes Backup machen mit z.B. ([Link](http://www.imactools.com/iphonebackupviewer/)).
-- Und dann in den Dateien nach  DB unter RAW, com.xiaomi.home, USERID_mihome.sqlite suchen.
-
-
-Auch hier wird nach dem 32 stelligen Token gesucht
+### 6. Antwort auswerten
+Die letzten 16 Byte (32 Zeichen) der Antwort sind der gesuchte Token der in der iobroker config eingegeben werden muss.
 
 ## Widget
-![Widget](widgets/mihome-vacuum/img/previewControl.png)
+![Widget](widgets/img/previewControl.png)
 
 ## Changelog
-### 0.3.2 (2017-06-07)
-* (MeisterTR) fix no communication after softwareupdate(Vers. 3.3.9)
 
 ### 0.3.1 (2017-04-10)
 * (MeisterTR) fix setting the fan power
