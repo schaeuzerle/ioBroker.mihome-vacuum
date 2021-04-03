@@ -40,7 +40,7 @@ class MihomeVacuum extends utils.Adapter {
     constructor(options) {
         super({
             ...options,
-            name: 'mihome-vacuum',
+            name: 'v7-vacuum',
         });
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
