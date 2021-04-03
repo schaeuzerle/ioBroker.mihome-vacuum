@@ -1,6 +1,6 @@
 {
     "common": {
-      "name": "mihome-vacuum",
+      "name": "v7-vacuum",
       "version": "3.0.2",
       "news": {
         "3.0.1": {
@@ -16,7 +16,7 @@
             "zh-cn": "全面返工，支持viomi"
           }
       },
-      "title": "mihome-vacuum",
+      "title": "v7-vacuum",
       "titleLang": {
         "en": "control of Xiaomi/Roborock vacuum cleaner",
         "de": "Steuerung des Staubsaugers Xiaomi / Roborock",
